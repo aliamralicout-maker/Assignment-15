@@ -8,7 +8,7 @@ import { ApiChangePAssword } from '../../Service/ChangePasswordService';
 import { useContext, useState } from 'react';
 import { TokenContext } from '../../Context/TokenContext';
 import MessageSuccess from '../../Errors/MessageSuccess';
-import MessageError from '../../Errors/messageError';
+import MessageError from '../../Errors/MessageError';
 
 
 const ChangePassSchema = z.object({
