@@ -7,7 +7,7 @@ import Errors from "../../Errors/Errors";
 import AuthBg from "../AuthBg/AuthBg";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
-import MessageError from "../../Errors/messageError";
+import MessageError from "../../Errors/MessageError";
 import MessageSuccess from "../../Errors/MessageSuccess";
 import { LuKeyRound, LuUsers } from "react-icons/lu";
 import { FiUser } from "react-icons/fi";
