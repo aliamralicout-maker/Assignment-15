@@ -10,6 +10,7 @@ import { userProfile } from '../../Context/UserprofileContext'
 
 
 
+
 export default function MyPosts() {
 
     const { userData } = useContext(userProfile);
@@ -27,6 +28,11 @@ export default function MyPosts() {
         // refetchOnMount: false,
     })
 
+
+    const postId = data?.data?.data?.posts;
+
+    // console.log('all posts: ',postId);
+    
 
 
     const myData = data?.data.data?.posts;
@@ -51,7 +57,7 @@ export default function MyPosts() {
 
     return (
         <>
-            {myData && myData.map((item, i) => <PostCard totalPosts={totalPosts} key={item._id} post={item} getId={item._id} />)}
+            {myData && myData.map((item, i) => <PostCard totalPosts={totalPosts} key={item._id} post={item} getId={item._id} postId={postId} />)}
         </>
     )
 }

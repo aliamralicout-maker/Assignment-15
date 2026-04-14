@@ -42,6 +42,7 @@ export default function CommentCard({ commentCount, comment, setAllCommentClick 
         }
     });
 
+
     return (
         <div className="mx-4 mb-4 rounded-2xl border border-slate-200 bg-gray-200 p-3">
             <p className="mb-2 text-[11px] font-bold uppercase tracking-wide text-slate-500">

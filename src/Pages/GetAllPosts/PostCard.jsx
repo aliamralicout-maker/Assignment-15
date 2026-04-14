@@ -14,14 +14,16 @@ import AllComment from '../AddComment/AllComment'
 import CardUpdatePost from '../CardUpdatePost/CardUpdatePost'
 import { Link } from 'react-router-dom'
 import { usersDataContext } from '../../Context/UsersDataContext'
+import { likePost } from '../../Service/LikeService'
 
 
 
-export default function PostCard({ post, totalPosts }) {
+export default function PostCard({ post, totalPosts, postId }) {
 
     const queryClient = useQueryClient();
-    const {setCountPosts, savData} = useContext(usersDataContext);
+    const { setCountPosts, savData } = useContext(usersDataContext);
 
+    // const like = post?.likes.length
 
 
     const user = post.user;
@@ -29,9 +31,15 @@ export default function PostCard({ post, totalPosts }) {
     const [allCommentClick, setAllCommentClick] = useState(false);
     const [showCardComment, setShowCardComment] = useState(false);
     const [updatePost, setUpdatePost] = useState(false);
+    const [likeBtn, setLikeBtn] = useState(false);
+    
+    const isLiked = post.likes.includes(userData?._id);
+
 
 
     const [modalOpen, setModalOpen] = useState(false);
+
+
 
 
 
@@ -45,6 +53,20 @@ export default function PostCard({ post, totalPosts }) {
         },
     })
 
+    // like
+    const { mutate: likeId } = useMutation({
+        mutationFn: (id) => likePost(id),
+        mutationKey: ['posts'],
+        onSuccess: (res) => {
+            console.log("Success response:", res);
+            queryClient.invalidateQueries(['posts']);
+        },
+
+        onError: (error) => {
+            console.log(error);
+        },
+    });
+
     const isoDate = post.createdAt;
     const dateObj = new Date(isoDate);
 
@@ -57,13 +79,13 @@ export default function PostCard({ post, totalPosts }) {
         }
     }, [post.user]);
 
-    useEffect(()=>{
+    useEffect(() => {
         setCountPosts(totalPosts);
-    })
+    }, [totalPosts]);
 
     return (
         <>
-            <article className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+            <article className="overflow-hidden rounded-xl border border-slate-200  shadow-sm bg-white mb-5">
                 <div className="p-4">
                     <div className="flex items-center gap-3">
                         <a className="shrink-0" href="#/profile" >
@@ -75,10 +97,10 @@ export default function PostCard({ post, totalPosts }) {
                         </a>
                         <div className="min-w-0 flex-1">
                             <Link to={`Profile/${user._id}`}>
-                                <a
+                                <p
                                     className="truncate text-sm font-bold text-foreground hover:underline" href="#/profile">
                                     {user.name}
-                                </a>
+                                </p>
                             </Link>
                             <div className="flex flex-wrap items-center gap-1 text-xs text-muted-foreground">
                                 {user.username}
@@ -125,8 +147,8 @@ export default function PostCard({ post, totalPosts }) {
                             <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#1877f2] text-white">
                                 <BiLike />
                             </span>
-                            <button className="font-semibold transition cursor-pointer hover:text-[#1877f2] hover:underline">
-                                1 likes
+                            <button className="font-semibold transition">
+                                {post.likesCount || 0} likes
                             </button>
                         </div>
 
@@ -149,7 +171,7 @@ export default function PostCard({ post, totalPosts }) {
                 {/* ----------------------------------------------------------------------------- */}
                 <div className="grid grid-cols-3 gap-1 p-1">
                     {/* Like Button */}
-                    <button className="cursor-pointer flex items-center justify-center gap-1.5 rounded-md p-2 text-xs font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50 sm:gap-2 sm:text-sm text-slate-600 hover:bg-slate-100">
+                    <button onClick={() => likeId(post._id)} className={`cursor-pointer flex items-center justify-center gap-1.5 rounded-md p-2 text-xs font-semibold sm:gap-2 sm:text-sm ${isLiked ? "text-[#1877f2] bg-blue-50" : "text-slate-600 hover:bg-slate-100"}`}>
                         <BiLike size={'20px'} />
                         <span>Like</span>
                     </button>
@@ -180,7 +202,7 @@ export default function PostCard({ post, totalPosts }) {
                 )}
                 {/* {AllComment ? (<AllComment postId={post.id} />) : (firtsComment && <CommentCard setAllCommentClick={setAllCommentClick} comment={firtsComment} />)} */}
                 <DeletePostModal open={modalOpen} setModalOpen={setModalOpen} mutate={mutate} />
-            </article>
+            </article >
         </>
     )
 }

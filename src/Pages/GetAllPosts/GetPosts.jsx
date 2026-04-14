@@ -4,12 +4,13 @@ import PostCard from './PostCard'
 import { api } from '../../API/API'
 import Loder from '../Loder/Loder';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import Errors from '../../Errors/Errors';
 
 
 export default function GetPosts() {
     const queryClient = useQueryClient();
 
-    const { data, error, isError, isLoading, isFetching } = useQuery({
+    const { data, error, isError, isLoading } = useQuery({
         queryKey: ['all_posts'],
         queryFn: getAllPosts,
          // refetchOnWindowFocus: false,
@@ -36,9 +37,8 @@ export default function GetPosts() {
     }
 
 
-
     if (isError) {
-        return <p className="text-red-600 font-mono text-sm text-center">{error.message}</p>
+        return <Errors text={"Your session has expired, please log in again to continue."} />
     }
 
 

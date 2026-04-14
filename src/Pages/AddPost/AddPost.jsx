@@ -8,7 +8,6 @@ import { TbUsers } from 'react-icons/tb';
 import { userProfile } from '../../Context/UserprofileContext';
 import { api } from '../../API/API'
 import axios from 'axios';
-import MyPosts from '../MyPosts/MyPosts'
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 

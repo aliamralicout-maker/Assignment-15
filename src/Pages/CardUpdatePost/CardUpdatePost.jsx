@@ -2,7 +2,6 @@
 
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import React from "react";
 import { useForm } from "react-hook-form";
 import { ApiApdatePost } from "../../Service/UpdatePostService";
 import Errors from "../../Errors/Errors";
