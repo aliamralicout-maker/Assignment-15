@@ -31,8 +31,6 @@ export default function MyPosts() {
 
     const postId = data?.data?.data?.posts;
 
-    // console.log('all posts: ',postId);
-    
 
 
     const myData = data?.data.data?.posts;

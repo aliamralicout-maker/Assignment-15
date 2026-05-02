@@ -22,21 +22,21 @@ export default function ProfileSidebar({ navigate }) {
                     <div className="grid grid-cols-2 lg:grid-cols-1 gap-4">
 
                         <div className='space-y-2'>
-                            <button onClick={() => { setBtnAct(1); navigate('MyPosts') }} className={` ${btnAct === 1 ? actcol : hoverCol} w-full  text-start rounded-xl px-3 py-2 text-sm font-bold transition`} >
+                            <button onClick={() => { setBtnAct(1); navigate('MyPosts') }} className={` ${btnAct === 1 ? actcol : hoverCol} w-full  text-start rounded-xl px-3 py-2 text-sm font-bold transition cursor-pointer`} >
                                 <div className='flex items-center'> <MdOutlineFeed size={'1.5rem'} /> <span className='ms-2'>Feed</span> </div>
                             </button>
 
-                            <button onClick={() => { setBtnAct(2); navigate('MyPosts') }} className={` ${btnAct === 2 ? actcol : hoverCol} w-full  text-start rounded-xl px-3 py-2 text-sm font-bold transition`}>
+                            <button onClick={() => { setBtnAct(2); navigate('MyPosts') }} className={` ${btnAct === 2 ? actcol : hoverCol} w-full  text-start rounded-xl px-3 py-2 text-sm font-bold transition cursor-pointer`}>
                                 <div className='flex items-center'> <PiShootingStarDuotone size={'1.5rem'} /> <span className='ms-2'>My Posts</span>  </div>
                             </button>
                         </div>
 
                         <div className='space-y-2'>
-                            <button onClick={() => { setBtnAct(3); navigate('GetPosts') }} className={` ${btnAct === 3 ? actcol : hoverCol} w-full  text-start rounded-xl px-3 py-2 text-sm font-bold transition`}>
+                            <button onClick={() => { setBtnAct(3); navigate('GetPosts') }} className={` ${btnAct === 3 ? actcol : hoverCol} w-full  text-start rounded-xl px-3 py-2 text-sm font-bold transition cursor-pointer`}>
                                 <div className='flex items-center'> <FaEarthAmericas size={'1.4rem'} /> <span className='ms-2'>Community</span>  </div>
                             </button>
 
-                            <button onClick={() => setBtnAct(4)} className={` ${btnAct === 4 ? actcol : hoverCol} w-full  text-start rounded-xl px-3 py-2 text-sm font-bold transition`}>
+                            <button onClick={() => setBtnAct(4)} className={` ${btnAct === 4 ? actcol : hoverCol} w-full  text-start rounded-xl px-3 py-2 text-sm font-bold transition cursor-pointer`}>
                                 <div className='flex items-center'> <CiBookmark size={'1.5rem'} /> <span className='ms-2'>Saved</span>  </div>
                             </button>
                         </div>

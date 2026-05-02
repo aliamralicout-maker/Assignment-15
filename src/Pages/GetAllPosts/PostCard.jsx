@@ -1,4 +1,4 @@
-import { BiLike } from 'react-icons/bi'
+import { BiLike, BiLoaderAlt } from 'react-icons/bi'
 import { CiShare2 } from 'react-icons/ci'
 import { FaRegComment, FaShare } from 'react-icons/fa'
 import { MdOutlinePublic } from 'react-icons/md'
@@ -32,7 +32,7 @@ export default function PostCard({ post, totalPosts, postId }) {
     const [showCardComment, setShowCardComment] = useState(false);
     const [updatePost, setUpdatePost] = useState(false);
     const [likeBtn, setLikeBtn] = useState(false);
-    
+
     const isLiked = post.likes.includes(userData?._id);
 
 
@@ -54,14 +54,12 @@ export default function PostCard({ post, totalPosts, postId }) {
     })
 
     // like
-    const { mutate: likeId } = useMutation({
+    const { mutate: likeId, isPending: isLiking } = useMutation({
         mutationFn: (id) => likePost(id),
         mutationKey: ['posts'],
         onSuccess: (res) => {
-            console.log("Success response:", res);
             queryClient.invalidateQueries(['posts']);
         },
-
         onError: (error) => {
             console.log(error);
         },
@@ -171,8 +169,17 @@ export default function PostCard({ post, totalPosts, postId }) {
                 {/* ----------------------------------------------------------------------------- */}
                 <div className="grid grid-cols-3 gap-1 p-1">
                     {/* Like Button */}
-                    <button onClick={() => likeId(post._id)} className={`cursor-pointer flex items-center justify-center gap-1.5 rounded-md p-2 text-xs font-semibold sm:gap-2 sm:text-sm ${isLiked ? "text-[#1877f2] bg-blue-50" : "text-slate-600 hover:bg-slate-100"}`}>
-                        <BiLike size={'20px'} />
+                    <button
+                        onClick={() => likeId(post._id)}
+                        disabled={isLiking}
+                        className={`cursor-pointer flex items-center justify-center gap-1.5 rounded-md p-2 text-xs font-semibold sm:gap-2 sm:text-sm 
+                                    ${isLiked ? "text-[#1877f2] bg-blue-50" : "text-slate-600 hover:bg-slate-100"}`}
+                    >
+                        {isLiking ? (
+                            <BiLoaderAlt className="animate-spin" size="20px" />
+                        ) : (
+                            <BiLike size="20px" />
+                        )}
                         <span>Like</span>
                     </button>
 
